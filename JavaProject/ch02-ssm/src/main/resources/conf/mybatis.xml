@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+    <!-- 启用myBatis日志-->
+    <settings>
+        <setting name="logImpl" value="STDOUT_LOGGING"/>
+    </settings>
+
+    <typeAliases>
+        <package name="com.ddtw.domain"/>
+    </typeAliases>
+
+
+    <mappers>
+        <!--<mapper resource="com/ddtw/dao/StudentDao.xml"/>-->
+        <package name="com.ddtw.dao"/>
+    </mappers>
+</configuration>

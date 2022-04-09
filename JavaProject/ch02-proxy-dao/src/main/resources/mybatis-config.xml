@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+	<!--指定properties文件的位置，从根目录开始-->
+	<properties resource="jdbc.properties" />
+
+	<!-- 启用myBatis日志-->
+	<settings>
+		<setting name="logImpl" value="STDOUT_LOGGING"/>
+	</settings>
+
+	<!--定义别名-->
+	<typeAliases>
+		<typeAlias type="com.ddtw.domain.Student" alias="stu"></typeAlias>
+	<!--name是包名，包中所有的类，类名就是别名-->
+		<!--<package name="com.ddtw.domain"/>-->
+	</typeAliases>
+
+	<!--配置插件-->
+	<plugins>
+		<plugin interceptor="com.github.pagehelper.PageInterceptor"></plugin>
+	</plugins>
+	<environments default="mydev">
+		<environment id="mydev">
+			<transactionManager type="JDBC" />
+			<dataSource type="POOLED">
+				<property name="driver" value="${jdbc.driver}" />
+				<property name="url" value="${jdbc.url}" />
+				<property name="username" value="${jdbc.user}" />
+				<property name="password" value="${jdbc.password}" />
+			</dataSource>
+		</environment>
+	</environments>
+	<mappers>
+		<!--指定一个mapper文件-->
+		<!--<mapper resource="com/ddtw/dao/StudentDao.xml" />-->
+
+		<!--指定多个，直接使用包名,包中所有.xml文件-->
+		<package name="com.ddtw.dao"/>
+	</mappers>
+</configuration>

@@ -1,0 +1,6 @@
+com\ddtw\MyApp.class
+com\ddtw\dao\StudentDao.class
+com\ddtw\utils\MyBatisUtils.class
+com\ddtw\dao\impl\StudentDaoImpl.class
+com\ddtw\MyApp2.class
+com\ddtw\domain\Student.class

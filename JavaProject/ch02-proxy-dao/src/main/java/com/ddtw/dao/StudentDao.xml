@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.ddtw.dao.StudentDao">
+
+    <!--    sql复用-->
+    <sql id="studentSql">
+        select id,name,email,age from Student
+    </sql>
+
+    <select id="selectStudents" resultType="com.ddtw.domain.Student">
+        <include refid="studentSql" /> order by id
+    </select>
+
+
+
+    <insert id="insertStudent" >
+        insert  into Student values(#{id},#{name},#{email},#{age})
+    </insert>
+
+
+<!--    当数据库中列名和java类的属性名不同时，使用resultMap
+        数据库列名和java属性的关系
+        column 列名
+        property java类型的属性名
+-->
+    <resultMap id="studentMap" type="com.ddtw.domain.Student">
+        <id column="id" property="id" />
+        <result column="name" property="name" />
+        <result column="email" property="email" />
+        <result column="age" property="age" />
+    </resultMap>
+    <select id="selectAllStudents" resultMap="studentMap">
+        select id,name,email,age from Student ;
+    </select>
+
+
+
+
+    <select id="selectStudentIf" resultType="com.ddtw.domain.Student">
+        <include refid="studentSql" />
+        where id > 0
+        <if test="name!= null and name!= ''">
+            and name = #{name}
+        </if>
+        <if test="age > 0">
+            and age > #{age}
+        </if>
+    </select>
+
+    <select id="selectStudentWhere" resultType="com.ddtw.domain.Student">
+        select id,name,email,age from Student
+        <where>
+            <if test="name!= null and name!= ''">
+                name = #{name}
+            </if>
+            <if test="age > 0">
+                and age > #{age}
+            </if>
+        </where>
+
+    </select>
+
+    <select id="selectForeachOne" resultType="com.ddtw.domain.Student">
+        select * from Student where id in
+        <!--  conllection 数据类型  item 数据目标  open循环开始  close循环结束 separator分隔符-->
+        <foreach collection="list" item="stu" open="(" close=")"  separator=",">
+            #{stu.id}
+        </foreach>
+    </select>
+
+    <!--分页查询-->
+    <select id="selectAll" resultType="com.ddtw.domain.Student">
+        <include refid="studentSql" />
+    </select>
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
